@@ -1,5 +1,5 @@
-# 2D Action RPG
+# 2D Action RPG powered by Godot and CSharp
 
 ## Screenshots
 
-![Layout](screenshots/layout.png)
+![Layout](Screenshots/Layout.png)
