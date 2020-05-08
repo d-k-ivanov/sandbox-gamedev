@@ -8,6 +8,7 @@
 radius = 13.7116
 
 [node name="World" type="Node2D"]
+position = Vector2( 0, 1 )
 
 [node name="Bush" type="Sprite" parent="."]
 position = Vector2( 155.706, 88.9271 )

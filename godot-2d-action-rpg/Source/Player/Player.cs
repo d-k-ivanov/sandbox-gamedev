@@ -3,22 +3,36 @@ using System;
 
 public class Player : KinematicBody2D
 {
-    [Export]
-    public int speed = 200;
+    [Export] public int MaxSpeed       = 200;
+    [Export] public int Acceleration   = 100;
+    private const   int SpeedFraction  = 100;
 
-    // Called when the node enters the scene tree for the first time.
+    private Vector2     _velocity      = Vector2.Zero;
+
     public override void _Ready()
     {
         GD.Print("Player.cs is ready!");
     }
 
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _PhysicsProcess(float delta)
     {
-        var motion = new Vector2();
+        var motion = Vector2.Zero;
         motion.x = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
-        motion.y = Input.GetActionStrength("ui_down") - Input.GetActionStrength("ui_up");
+        motion.y = Input.GetActionStrength("ui_down")  - Input.GetActionStrength("ui_up");
+        motion = motion.Normalized();
 
-        MoveAndCollide(motion.Normalized() * speed * delta);
+        if (motion != Vector2.Zero)
+        {
+            _velocity += motion * Acceleration * delta;
+            _velocity = _velocity.Clamped(MaxSpeed * delta);
+        }
+        else
+        {
+            _velocity = _velocity.MoveToward(Vector2.Zero, SpeedFraction * delta) ;
+        }
+
+        GD.Print(_velocity);
+
+        MoveAndCollide( _velocity);
     }
 }
