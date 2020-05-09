@@ -3,11 +3,11 @@ using System;
 
 public class Player : KinematicBody2D
 {
-    [Export] public int MaxSpeed          = 160;
-    [Export] public int Acceleration      = 1000;
-    private const   int BreakingFraction  = 1000;
+    [Export] public int MaxSpeed            = 160;
+    [Export] public int Acceleration        = 1000;
+    private  const  int BreakingFraction    = 1000;
 
-    private Vector2     _velocity      = Vector2.Zero;
+    private Vector2 _velocity = Vector2.Zero;
 
     public override void _Ready()
     {
@@ -30,8 +30,8 @@ public class Player : KinematicBody2D
             _velocity = _velocity.MoveToward(Vector2.Zero, BreakingFraction * delta) ;
         }
 
-        GD.Print(_velocity);
+        // GD.Print(_velocity);
 
-        MoveAndCollide( _velocity * delta);
+        MoveAndSlide( _velocity);
     }
 }
