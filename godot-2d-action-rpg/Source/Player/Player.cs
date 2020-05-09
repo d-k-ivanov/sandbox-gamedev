@@ -7,12 +7,15 @@ public class Player : KinematicBody2D
     [Export] public int Acceleration        = 1000;
     private  const  int BreakingFraction    = 1000;
 
-    private Vector2 _velocity = Vector2.Zero;
+    private Vector2 _velocity               = Vector2.Zero;
+    private AnimationPlayer _animationPlayer;
 
     public override void _Ready()
     {
+        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         GD.Print("Player.cs is ready!");
     }
+
 
     public override void _PhysicsProcess(float delta)
     {
@@ -23,10 +26,12 @@ public class Player : KinematicBody2D
 
         if (motion != Vector2.Zero)
         {
+            _animationPlayer.Play(motion.x > 0 ? "RunRight" : "RunLeft");
             _velocity = _velocity.MoveToward(motion * MaxSpeed, Acceleration * delta);
         }
         else
         {
+            _animationPlayer.Play("IdleRight");
             _velocity = _velocity.MoveToward(Vector2.Zero, BreakingFraction * delta) ;
         }
 
