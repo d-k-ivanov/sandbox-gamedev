@@ -3,11 +3,21 @@ using System;
 
 public class Player : KinematicBody2D
 {
-    [Export] public int MaxSpeed            = 160;
-    [Export] public int Acceleration        = 1000;
-    private  const  int BreakingFraction    = 1000;
+    [Export] public int MaxSpeed                = 160;
+    [Export] public int Acceleration            = 1000;
+    private  const  int BreakingFraction        = 1000;
 
-    private Vector2 _velocity               = Vector2.Zero;
+    private Vector2 _velocity                   = Vector2.Zero;
+
+    private enum PlayerState
+    {
+        Move,
+        Roll,
+        Attack
+
+    }
+
+    private PlayerState _playerState            = PlayerState.Move;
 
     private AnimationPlayer                     _animationPlayer;
     private AnimationTree                       _animationTree;
@@ -27,6 +37,24 @@ public class Player : KinematicBody2D
 
     public override void _PhysicsProcess(float delta)
     {
+        switch (_playerState)
+        {
+            case PlayerState.Move:
+                MoveState(delta);
+                break;
+            case PlayerState.Attack:
+                AttackState(delta);
+                break;
+            case PlayerState.Roll:
+                RollState(delta);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private void MoveState(float delta)
+    {
         var motion = Vector2.Zero;
         motion.x = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
         motion.y = Input.GetActionStrength("ui_down")  - Input.GetActionStrength("ui_up");
@@ -37,6 +65,7 @@ public class Player : KinematicBody2D
             // _animationPlayer.Play(motion.x > 0 ? "RunRight" : "RunLeft");
             _animationTree.Set("parameters/Idle/blend_position", motion);
             _animationTree.Set("parameters/Run/blend_position", motion);
+            _animationTree.Set("parameters/Attack/blend_position", motion);
             _animationState.Travel("Run");
             _velocity = _velocity.MoveToward(motion * MaxSpeed, Acceleration * delta);
         }
@@ -50,5 +79,25 @@ public class Player : KinematicBody2D
         // GD.Print(_velocity);
 
         MoveAndSlide( _velocity);
+        if (Input.IsActionJustPressed("attack"))
+        {
+            _playerState = PlayerState.Attack;
+        }
+    }
+    private void AttackState(float delta)
+    {
+        _velocity = Vector2.Zero;
+        _animationState.Travel("Attack");
+        // _playerState = PlayerState.Move;
+    }
+
+    private void RollState(float delta)
+    {
+        // _playerState = PlayerState.Move;
+    }
+
+    private void OneTimeAnimationFinished()
+    {
+        _playerState = PlayerState.Move;
     }
 }
