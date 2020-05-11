@@ -529,7 +529,7 @@ points = PoolVector2Array( 0, 0, 32, 0, 32, 32, 0, 32 )
 position = Vector2( 0, 1 )
 
 [node name="Background" type="Sprite" parent="."]
-position = Vector2( 160, 90.3774 )
+position = Vector2( 160, 90 )
 texture = ExtResource( 3 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 320, 180 )
