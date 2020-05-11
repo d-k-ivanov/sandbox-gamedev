@@ -8,12 +8,20 @@ public class Player : KinematicBody2D
     private  const  int BreakingFraction    = 1000;
 
     private Vector2 _velocity               = Vector2.Zero;
-    private AnimationPlayer _animationPlayer;
+
+    private AnimationPlayer                     _animationPlayer;
+    private AnimationTree                       _animationTree;
+    private AnimationNodeStateMachinePlayback   _animationState;
 
     public override void _Ready()
     {
-        _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
-        GD.Print("Player.cs is ready!");
+        _animationPlayer        = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationTree          = GetNode<AnimationTree>("AnimationTree");
+        _animationTree.Active   = true;
+        _animationState         = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
+        _animationState.Start("Idle");
+
+        GD.Print("Player is ready!");
     }
 
 
@@ -26,12 +34,16 @@ public class Player : KinematicBody2D
 
         if (motion != Vector2.Zero)
         {
-            _animationPlayer.Play(motion.x > 0 ? "RunRight" : "RunLeft");
+            // _animationPlayer.Play(motion.x > 0 ? "RunRight" : "RunLeft");
+            _animationTree.Set("parameters/Idle/blend_position", motion);
+            _animationTree.Set("parameters/Run/blend_position", motion);
+            _animationState.Travel("Run");
             _velocity = _velocity.MoveToward(motion * MaxSpeed, Acceleration * delta);
         }
         else
         {
-            _animationPlayer.Play("IdleRight");
+            // _animationPlayer.Play("IdleRight");
+            _animationState.Travel("Idle");
             _velocity = _velocity.MoveToward(Vector2.Zero, BreakingFraction * delta) ;
         }
 
