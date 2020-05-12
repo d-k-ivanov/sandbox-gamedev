@@ -366,7 +366,6 @@ script = ExtResource( 2 )
 position = Vector2( 1, -9 )
 texture = ExtResource( 1 )
 hframes = 60
-frame = 35
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 rotation = -1.5708
