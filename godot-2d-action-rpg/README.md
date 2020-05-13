@@ -2,4 +2,4 @@
 
 ## Screenshots
 
-![Layout](Screenshots/Layout.png)
+![Layout](Screenshots/Layout.gif)
