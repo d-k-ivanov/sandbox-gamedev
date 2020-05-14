@@ -11,15 +11,21 @@ public class Grass : Node2D
 
     public override void _Process(float delta)
     {
-        if (Input.IsActionJustPressed("attack"))
-        {
-            var grassEffectNode     = _grassEffectScene.Instance() as GrassEffect;
-            var world           = GetTree().CurrentScene;
-            world.AddChild(grassEffectNode);
+        // if (Input.IsActionJustPressed("attack"))
+        // {
+        // }
+    }
 
-            if (grassEffectNode != null) grassEffectNode.GlobalPosition = GlobalPosition;
-
-            QueueFree();
-        }
+    private void CreateGrassEffect()
+    {
+        var grassEffectNode         = _grassEffectScene.Instance() as GrassEffect;
+        var world               = GetTree().CurrentScene;
+        world.AddChild(grassEffectNode);
+        if (grassEffectNode != null) grassEffectNode.GlobalPosition = GlobalPosition;
+    }
+    private void _on_Hurtbox_area_entered(object area)
+    {
+        CreateGrassEffect();
+        QueueFree();
     }
 }
