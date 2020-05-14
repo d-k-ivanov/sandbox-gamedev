@@ -8,4 +8,4 @@
 
 ## Screenshot
 
-![Arcanoid](README.png)
+![Arcanoid](README.gif)

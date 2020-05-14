@@ -5,12 +5,13 @@ ${arch}    = (Get-CimInstance Win32_operatingsystem).OSArchitecture.split('-')[0
 ${libPath} = (Join-Path $PSScriptRoot "lib${arch}")
 ${binPath} = (Join-Path $PSScriptRoot "bin")
 
-CreateAndSet-Directory build
+New-Item build -ItemType Directory -ErrorAction SilentlyContinue
+Set-Location build 
 
 # cmake ..
 # cmake -G "MinGW Makefiles" .. -DCMAKE_C_COMPILER=gcc
 # cmake -G "Visual Studio 15 2017" ..
-cmake -G "Visual Studio 15 2017 Win64" ..
+cmake -G "Visual Studio 16 2019" ..
 # cmake -G "Visual Studio 15 2017 Win64" -T "LLVM-vs2014" ..
 
 # cmake --build .
