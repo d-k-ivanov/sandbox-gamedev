@@ -4,10 +4,12 @@ using System;
 public class Player : KinematicBody2D
 {
     [Export] public int MaxSpeed                = 160;
+    [Export] public int RollSpeed               = 210;
     [Export] public int Acceleration            = 1000;
     private  const  int BreakingFraction        = 1000;
 
     private Vector2 _velocity                   = Vector2.Zero;
+    private Vector2 _roll_direction             = Vector2.Right;
 
     private enum PlayerState
     {
@@ -62,23 +64,29 @@ public class Player : KinematicBody2D
 
         if (motion != Vector2.Zero)
         {
-            // _animationPlayer.Play(motion.x > 0 ? "RunRight" : "RunLeft");
+            _roll_direction = motion;
+
             _animationTree.Set("parameters/Idle/blend_position", motion);
             _animationTree.Set("parameters/Run/blend_position", motion);
             _animationTree.Set("parameters/Attack/blend_position", motion);
+            _animationTree.Set("parameters/Roll/blend_position", motion);
+
             _animationState.Travel("Run");
             _velocity = _velocity.MoveToward(motion * MaxSpeed, Acceleration * delta);
         }
         else
         {
-            // _animationPlayer.Play("IdleRight");
             _animationState.Travel("Idle");
             _velocity = _velocity.MoveToward(Vector2.Zero, BreakingFraction * delta) ;
         }
 
-        // GD.Print(_velocity);
+        Move();
 
-        MoveAndSlide( _velocity);
+        if (Input.IsActionJustPressed("roll"))
+        {
+            _playerState = PlayerState.Roll;
+        }
+
         if (Input.IsActionJustPressed("attack"))
         {
             _playerState = PlayerState.Attack;
@@ -88,16 +96,23 @@ public class Player : KinematicBody2D
     {
         _velocity = Vector2.Zero;
         _animationState.Travel("Attack");
-        // _playerState = PlayerState.Move;
     }
 
     private void RollState(float delta)
     {
-        // _playerState = PlayerState.Move;
+        _velocity = _roll_direction * RollSpeed;
+        _animationState.Travel("Roll");
+        Move();
+    }
+
+    private void Move()
+    {
+        _velocity = MoveAndSlide( _velocity);
     }
 
     private void OneTimeAnimationFinished()
     {
+        _velocity = _velocity * (float) 0.7;
         _playerState = PlayerState.Move;
     }
 }
