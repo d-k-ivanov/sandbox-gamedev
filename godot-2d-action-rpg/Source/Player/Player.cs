@@ -6,10 +6,11 @@ public class Player : KinematicBody2D
     [Export] public int MaxSpeed                = 160;
     [Export] public int RollSpeed               = 210;
     [Export] public int Acceleration            = 1000;
-    private  const  int BreakingFraction        = 1000;
 
-    private Vector2 _velocity                   = Vector2.Zero;
-    private Vector2 _roll_direction             = Vector2.Right;
+    private const int BreakingFraction          = 1000;
+
+    private Vector2 _velocity;
+    private Vector2 _roll_direction;
 
     private enum PlayerState
     {
@@ -24,14 +25,20 @@ public class Player : KinematicBody2D
     private AnimationPlayer                     _animationPlayer;
     private AnimationTree                       _animationTree;
     private AnimationNodeStateMachinePlayback   _animationState;
+    private SwordHitbox                         _swordHitbox;
 
     public override void _Ready()
     {
-        _animationPlayer        = GetNode<AnimationPlayer>("AnimationPlayer");
-        _animationTree          = GetNode<AnimationTree>("AnimationTree");
-        _animationTree.Active   = true;
-        _animationState         = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
+        _velocity                   = Vector2.Zero;
+        _roll_direction             = Vector2.Right;
+        _animationPlayer            = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationTree              = GetNode<AnimationTree>("AnimationTree");
+        _animationTree.Active       = true;
+        _animationState             = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
         _animationState.Start("Idle");
+
+        _swordHitbox                = GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
+        _swordHitbox.HitDirection   = Vector2.Right;
 
         GD.Print("Player is ready!");
     }
@@ -64,7 +71,8 @@ public class Player : KinematicBody2D
 
         if (motion != Vector2.Zero)
         {
-            _roll_direction = motion;
+            _roll_direction             = motion;
+            _swordHitbox.HitDirection   = motion;
 
             _animationTree.Set("parameters/Idle/blend_position", motion);
             _animationTree.Set("parameters/Run/blend_position", motion);
