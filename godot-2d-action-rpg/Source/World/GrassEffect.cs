@@ -12,8 +12,7 @@ public class GrassEffect : Node2D
     }
 
     public override void _Process(float delta)
-    {
-    }
+    {}
 
     private void _on_AnimatedSprite_animation_finished()
     {

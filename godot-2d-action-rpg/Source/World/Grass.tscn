@@ -4,10 +4,10 @@
 [ext_resource path="res://Source/World/Grass.cs" type="Script" id=2]
 [ext_resource path="res://Source/Objects/Hurtbox.tscn" type="PackedScene" id=3]
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.91296, 4.05019 )
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 7.06241, 7.02456 )
 
 [node name="Grass" type="StaticBody2D"]
@@ -21,7 +21,7 @@ offset = Vector2( -8, -8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( 8, 8 )
-shape = SubResource( 2 )
+shape = SubResource( 1 )
 
 [node name="Hurtbox" parent="." instance=ExtResource( 3 )]
 collision_layer = 8
@@ -29,7 +29,7 @@ collision_mask = 0
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2( 8, 8 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_Hurtbox_area_entered"]
 
 [editable path="Hurtbox"]

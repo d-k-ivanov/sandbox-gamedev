@@ -12,8 +12,7 @@ public class Grass : Node2D
     public override void _Process(float delta)
     {
         // if (Input.IsActionJustPressed("attack"))
-        // {
-        // }
+        // {}
     }
 
     private void CreateGrassEffect()

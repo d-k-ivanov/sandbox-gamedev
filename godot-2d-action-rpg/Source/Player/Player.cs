@@ -10,7 +10,7 @@ public class Player : KinematicBody2D
     private const int BreakingFraction          = 1000;
 
     private Vector2 _velocity;
-    private Vector2 _roll_direction;
+    private Vector2 _rollDirection;
 
     private enum PlayerState
     {
@@ -22,7 +22,7 @@ public class Player : KinematicBody2D
 
     private PlayerState _playerState            = PlayerState.Move;
 
-    private AnimationPlayer                     _animationPlayer;
+    // private AnimationPlayer                     _animationPlayer;
     private AnimationTree                       _animationTree;
     private AnimationNodeStateMachinePlayback   _animationState;
     private SwordHitbox                         _swordHitbox;
@@ -30,8 +30,8 @@ public class Player : KinematicBody2D
     public override void _Ready()
     {
         _velocity                   = Vector2.Zero;
-        _roll_direction             = Vector2.Right;
-        _animationPlayer            = GetNode<AnimationPlayer>("AnimationPlayer");
+        _rollDirection              = Vector2.Right;
+        // _animationPlayer            = GetNode<AnimationPlayer>("AnimationPlayer");
         _animationTree              = GetNode<AnimationTree>("AnimationTree");
         _animationTree.Active       = true;
         _animationState             = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
@@ -52,10 +52,10 @@ public class Player : KinematicBody2D
                 MoveState(delta);
                 break;
             case PlayerState.Attack:
-                AttackState(delta);
+                AttackState();
                 break;
             case PlayerState.Roll:
-                RollState(delta);
+                RollState();
                 break;
             default:
                 throw new ArgumentOutOfRangeException();
@@ -71,7 +71,7 @@ public class Player : KinematicBody2D
 
         if (motion != Vector2.Zero)
         {
-            _roll_direction             = motion;
+            _rollDirection             = motion;
             _swordHitbox.HitDirection   = motion;
 
             _animationTree.Set("parameters/Idle/blend_position", motion);
@@ -100,15 +100,15 @@ public class Player : KinematicBody2D
             _playerState = PlayerState.Attack;
         }
     }
-    private void AttackState(float delta)
+    private void AttackState()
     {
         _velocity = Vector2.Zero;
         _animationState.Travel("Attack");
     }
 
-    private void RollState(float delta)
+    private void RollState()
     {
-        _velocity = _roll_direction * RollSpeed;
+        _velocity = _rollDirection * RollSpeed;
         _animationState.Travel("Roll");
         Move();
     }
@@ -120,7 +120,7 @@ public class Player : KinematicBody2D
 
     private void OneTimeAnimationFinished()
     {
-        _velocity = _velocity * (float) 0.7;
+        _velocity *= (float) 0.7;
         _playerState = PlayerState.Move;
     }
 }

@@ -1,9 +1,9 @@
 using Godot;
 using System;
 
-public class SwordHitbox : Hitbox
+public class Hitbox : Area2D
 {
-    public Vector2 HitDirection = Vector2.Zero;
+    [Export] public int Damage = 1;
 
     public override void _Ready()
     {}
