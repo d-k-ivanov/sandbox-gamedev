@@ -6,11 +6,12 @@ public class Bat : KinematicBody2D
     private Vector2 _knockBack = Vector2.Zero;
     private Stats _stats;
 
+    private readonly PackedScene _enemyDeathEffectScene = GD.Load("res://Source/Enemies/EnemyDeathEffect.tscn") as PackedScene;
+
     public override void _Ready()
     {
         _stats = GetNode<Stats>("Stats");
-        var status = this.Name + " initial status:\tHealth=<" + _stats.Health + "> MaxHealth=<" + _stats.MaxHealth + ">";
-        GD.Print(status);
+        // GD.Print($"{this.Name} initial status:\tHealth={_stats.Health} MaxHealth={_stats.MaxHealth}");
     }
 
     public override void _PhysicsProcess(float delta)
@@ -23,7 +24,6 @@ public class Bat : KinematicBody2D
     {
         // _stats.Health -= 1;
         _stats.Health -= area.Damage;
-        var status = this.Name + " health:\t" + _stats.Health + " of " + _stats.MaxHealth;
 
         // Kill v.1
         // if (_stats.Health <= 0)
@@ -31,14 +31,23 @@ public class Bat : KinematicBody2D
         //     QueueFree();
         //
         // }
-        GD.Print(status);
+
+        GD.Print($"{this.Name} health:\t{_stats.Health} of {_stats.MaxHealth}");
         _knockBack = area.HitDirection * 120;
+    }
+
+    private void CreateDeathEffect()
+    {
+        var deathEffectNode           = _enemyDeathEffectScene.Instance() as Effect;
+        GetParent().AddChild(deathEffectNode);
+        if (deathEffectNode != null) deathEffectNode.GlobalPosition = GlobalPosition;
     }
 
     // Kill v.2 - Signals
     private void _on_Stats_NoHealth()
     {
         QueueFree();
+        CreateDeathEffect();
     }
 
 }

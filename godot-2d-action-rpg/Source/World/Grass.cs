@@ -17,9 +17,8 @@ public class Grass : Node2D
 
     private void CreateGrassEffect()
     {
-        var grassEffectNode         = _grassEffectScene.Instance() as GrassEffect;
-        var world               = GetTree().CurrentScene;
-        world.AddChild(grassEffectNode);
+        var grassEffectNode         = _grassEffectScene.Instance() as Effect;
+        GetParent().AddChild(grassEffectNode);
         if (grassEffectNode != null) grassEffectNode.GlobalPosition = GlobalPosition;
     }
     private void _on_Hurtbox_area_entered(object area)
