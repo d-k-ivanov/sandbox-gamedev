@@ -23,7 +23,7 @@ public class Grass : Node2D
     }
     private void _on_Hurtbox_area_entered(object area)
     {
-        CreateGrassEffect();
         QueueFree();
+        CreateGrassEffect();
     }
 }

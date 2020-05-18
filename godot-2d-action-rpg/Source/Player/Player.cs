@@ -6,8 +6,7 @@ public class Player : KinematicBody2D
     [Export] public int MaxSpeed                = 160;
     [Export] public int RollSpeed               = 210;
     [Export] public int Acceleration            = 1000;
-
-    private const int BreakingFraction          = 1000;
+    [Export] public int Friction                = 1000;
 
     private Vector2 _velocity;
     private Vector2 _rollDirection;
@@ -17,9 +16,7 @@ public class Player : KinematicBody2D
         Move,
         Roll,
         Attack
-
     }
-
     private PlayerState _playerState            = PlayerState.Move;
 
     // private AnimationPlayer                     _animationPlayer;
@@ -85,7 +82,7 @@ public class Player : KinematicBody2D
         else
         {
             _animationState.Travel("Idle");
-            _velocity = _velocity.MoveToward(Vector2.Zero, BreakingFraction * delta) ;
+            _velocity = _velocity.MoveToward(Vector2.Zero, Friction * delta) ;
         }
 
         Move();
