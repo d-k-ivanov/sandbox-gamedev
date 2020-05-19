@@ -8,8 +8,14 @@ public class Player : KinematicBody2D
     [Export] public int Acceleration            = 1000;
     [Export] public int Friction                = 1000;
 
-    private Vector2 _velocity;
-    private Vector2 _rollDirection;
+    private Vector2                             _velocity;
+    private Vector2                             _rollDirection;
+    private Stats                               _stats;
+    // private AnimationPlayer                  _animationPlayer;
+    private AnimationTree                       _animationTree;
+    private AnimationNodeStateMachinePlayback   _animationState;
+    private SwordHitbox                         _swordHitbox;
+    private Hurtbox                             _hurtbox;
 
     private enum PlayerState
     {
@@ -19,15 +25,15 @@ public class Player : KinematicBody2D
     }
     private PlayerState _playerState            = PlayerState.Move;
 
-    // private AnimationPlayer                     _animationPlayer;
-    private AnimationTree                       _animationTree;
-    private AnimationNodeStateMachinePlayback   _animationState;
-    private SwordHitbox                         _swordHitbox;
-
     public override void _Ready()
     {
         _velocity                   = Vector2.Zero;
         _rollDirection              = Vector2.Right;
+
+        // Player stats
+        _stats                      = GetNode("/root/PlayerStats") as Stats;
+        _stats?.Connect("NoHealth", this, "Death");
+
         // _animationPlayer            = GetNode<AnimationPlayer>("AnimationPlayer");
         _animationTree              = GetNode<AnimationTree>("AnimationTree");
         _animationTree.Active       = true;
@@ -36,6 +42,8 @@ public class Player : KinematicBody2D
 
         _swordHitbox                = GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
         _swordHitbox.HitDirection   = Vector2.Right;
+
+        _hurtbox                = GetNode<Hurtbox>("Hurtbox");
 
         GD.Print("Player is ready!");
     }
@@ -101,7 +109,7 @@ public class Player : KinematicBody2D
     {
         _velocity = Vector2.Zero;
         _animationState.Travel("Attack");
-    }
+    }z
 
     private void RollState()
     {
@@ -115,9 +123,22 @@ public class Player : KinematicBody2D
         _velocity = MoveAndSlide( _velocity);
     }
 
+    private void Death()
+    {
+        QueueFree();
+    }
+
     private void OneTimeAnimationFinished()
     {
         _velocity *= (float) 0.7;
         _playerState = PlayerState.Move;
+    }
+
+    private void _on_Hurtbox_area_entered(object area)
+    {
+        _stats.Health -= 1;
+        _hurtbox.StartInvincibility(0.5f);
+        _hurtbox.CreateHitEffect();
+        GD.Print($"{this.Name} health:\t{_stats.Health} of {_stats.MaxHealth}");
     }
 }

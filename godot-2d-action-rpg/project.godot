@@ -19,6 +19,10 @@ config/name="godot-2d-action-rpg"
 run/main_scene="res://Source/World.tscn"
 config/icon="res://icon.png"
 
+[autoload]
+
+PlayerStats="*res://Source/Player/PlayerStats.tscn"
+
 [display]
 
 window/size/width=640
@@ -108,5 +112,4 @@ unhandled_exception_policy=1
 
 [rendering]
 
-environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"

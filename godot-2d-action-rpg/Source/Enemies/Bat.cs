@@ -3,15 +3,16 @@ using System;
 
 public class Bat : KinematicBody2D
 {
-    [Export] public int MaxSpeed                = 100;
+    [Export] public int MaxSpeed                = 80;
     [Export] public int Acceleration            = 200;
-    [Export] public int Friction                = 200;
+    [Export] public int Friction                = 300;
 
-    private Vector2 _velocity;
-    private Vector2 _knockBack;
-    private AnimatedSprite _animatedSprite;
-    private Stats _stats;
-    private PlayerDetectionZone _playerDetectionZone;
+    private Vector2                             _velocity;
+    private Vector2                             _knockBack;
+    private AnimatedSprite                      _animatedSprite;
+    private Stats                               _stats;
+    private PlayerDetectionZone                 _playerDetectionZone;
+    private Hurtbox                             _hurtbox;
 
     private readonly PackedScene _enemyDeathEffectScene = GD.Load("res://Source/Enemies/EnemyDeathEffect.tscn") as PackedScene;
 
@@ -21,15 +22,16 @@ public class Bat : KinematicBody2D
         Wander,
         Chase
     }
-    private BatState _batState            = BatState.Idle;
+    private BatState _batState = BatState.Idle;
 
     public override void _Ready()
     {
-        _velocity            = Vector2.Zero;
-        _knockBack           = Vector2.Zero;
-        _animatedSprite      = GetNode<AnimatedSprite>("AnimatedSprite");
-        _stats               = GetNode<Stats>("Stats");
-        _playerDetectionZone = GetNode<PlayerDetectionZone>("PlayerDetectionZone");
+        _velocity               = Vector2.Zero;
+        _knockBack              = Vector2.Zero;
+        _animatedSprite         = GetNode<AnimatedSprite>("AnimatedSprite");
+        _stats                  = GetNode<Stats>("Stats");
+        _playerDetectionZone    = GetNode<PlayerDetectionZone>("PlayerDetectionZone");
+        _hurtbox                = GetNode<Hurtbox>("Hurtbox");
         // GD.Print($"{this.Name} initial status:\tHealth={_stats.Health} MaxHealth={_stats.MaxHealth}");
     }
 
@@ -87,7 +89,8 @@ public class Bat : KinematicBody2D
         // }
 
         GD.Print($"{this.Name} health:\t{_stats.Health} of {_stats.MaxHealth}");
-        _knockBack = area.HitDirection * 120;
+        _knockBack = area.HitDirection * 160;
+        _hurtbox.CreateHitEffect();
     }
 
     private void CreateDeathEffect()

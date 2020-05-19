@@ -3,12 +3,10 @@ using System;
 
 public class Stats : Node
 {
-    [Export]
-    public int MaxHealth    = 1;
+    [Export] public int MaxHealth    = 1;
 
     // Kill v.2 - Signals
-    [Signal]
-    private delegate void NoHealth();
+    [Signal] private delegate void NoHealth();
 
     private int _health;
 
