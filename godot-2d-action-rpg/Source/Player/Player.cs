@@ -109,7 +109,7 @@ public class Player : KinematicBody2D
     {
         _velocity = Vector2.Zero;
         _animationState.Travel("Attack");
-    }z
+    }
 
     private void RollState()
     {
