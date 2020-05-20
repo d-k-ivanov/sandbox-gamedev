@@ -11,6 +11,9 @@ export_presets.cfg
 .mono/
 data_*/
 
+# nuget
+packages/
+
 *.csproj
 *.sln
 *.user
