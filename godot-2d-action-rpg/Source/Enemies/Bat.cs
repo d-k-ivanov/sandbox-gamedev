@@ -4,8 +4,8 @@ using System;
 public class Bat : KinematicBody2D
 {
     [Export] public int MaxSpeed                = 80;
-    [Export] public int Acceleration            = 200;
-    [Export] public int Friction                = 300;
+    [Export] public int Acceleration            = 300;
+    [Export] public int Friction                = 400;
 
     private Vector2                             _velocity;
     private Vector2                             _knockBack;

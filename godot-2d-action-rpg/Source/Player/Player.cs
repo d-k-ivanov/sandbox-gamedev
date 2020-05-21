@@ -34,7 +34,7 @@ public class Player : KinematicBody2D
         _stats                      = GetNode("/root/PlayerStats") as Stats;
         _stats?.Connect("NoHealth", this, "Death");
 
-        // _animationPlayer            = GetNode<AnimationPlayer>("AnimationPlayer");
+        // _animationPlayer         = GetNode<AnimationPlayer>("AnimationPlayer");
         _animationTree              = GetNode<AnimationTree>("AnimationTree");
         _animationTree.Active       = true;
         _animationState             = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
@@ -43,7 +43,7 @@ public class Player : KinematicBody2D
         _swordHitbox                = GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
         _swordHitbox.HitDirection   = Vector2.Right;
 
-        _hurtbox                = GetNode<Hurtbox>("Hurtbox");
+        _hurtbox                    = GetNode<Hurtbox>("Hurtbox");
 
         GD.Print("Player is ready!");
     }
@@ -70,19 +70,19 @@ public class Player : KinematicBody2D
     private void MoveState(float delta)
     {
         var motion = Vector2.Zero;
-        motion.x = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
-        motion.y = Input.GetActionStrength("ui_down")  - Input.GetActionStrength("ui_up");
+        motion.x   = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+        motion.y   = Input.GetActionStrength("ui_down")  - Input.GetActionStrength("ui_up");
         motion = motion.Normalized();
 
         if (motion != Vector2.Zero)
         {
-            _rollDirection             = motion;
+            _rollDirection              = motion;
             _swordHitbox.HitDirection   = motion;
 
-            _animationTree.Set("parameters/Idle/blend_position", motion);
-            _animationTree.Set("parameters/Run/blend_position", motion);
+            _animationTree.Set("parameters/Idle/blend_position",   motion);
+            _animationTree.Set("parameters/Run/blend_position",    motion);
             _animationTree.Set("parameters/Attack/blend_position", motion);
-            _animationTree.Set("parameters/Roll/blend_position", motion);
+            _animationTree.Set("parameters/Roll/blend_position",   motion);
 
             _animationState.Travel("Run");
             _velocity = _velocity.MoveToward(motion * MaxSpeed, Acceleration * delta);
