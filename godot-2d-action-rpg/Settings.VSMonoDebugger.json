@@ -1,0 +1,41 @@
+{
+  "SelectedId": "d83efdc8-398f-43f6-8886-49f9ec3e87f4",
+  "DeviceConnections": [
+    {
+      "MONO_DEBUG_PORT": "$(MONO_DEBUG_PORT)",
+      "TARGET_EXE_FILENAME": "$(TARGET_EXE_FILENAME)",
+      "START_ARGUMENTS": "$(START_ARGUMENTS)",
+      "PLINK_EXE_PATH": "$(PLINK_EXE_PATH)",
+      "PLINK_SSH_CONNECTION_ARGS": "$(PLINK_SSH_CONNECTION_ARGS)",
+      "DEPLOYMENT_PATH": "$(DEPLOYMENT_PATH)",
+      "Id": "d83efdc8-398f-43f6-8886-49f9ec3e87f4",
+      "Description": "",
+      "LastIp": "127.0.0.1",
+      "FullDescription": " @127.0.0.1:22",
+      "UseDeployPathFromProjectFileIfExists": true,
+      "EnableVerboseDebugLogging": false,
+      "SSHFullUrl": "@127.0.0.1:22",
+      "SSHHostIP": "127.0.0.1",
+      "SSHPort": 22,
+      "SSHUsername": "",
+      "SSHPassword": "",
+      "SSHPrivateKeyFile": "",
+      "SSHDeployPath": "./MonoDebugTemp/",
+      "DeployAndDebugOnLocalWindowsSystem": false,
+      "ShowSSHOptions": 0,
+      "ShowWindowsOptions": 2,
+      "WindowsDeployPath": "",
+      "RedirectOutputOption": 3,
+      "SSHMonoDebugPort": 23685,
+      "MaxConnectionAttempts": 10,
+      "TimeBetweenConnectionAttemptsInMs": 1000,
+      "UseDotnetCoreDebugger": false,
+      "PreDebugScriptWithParameters": "kill $(lsof -i | grep 'mono' | grep '\\*:$(MONO_DEBUG_PORT)' | awk '{print $2}');\r\nkill $(ps w | grep '[m]ono --debugger-agent=address' | awk '{print $1}');",
+      "DebugScriptWithParameters": "mono --debugger-agent=address=0.0.0.0:$(MONO_DEBUG_PORT),transport=dt_socket,server=y --debug=mdb-optimizations $(TARGET_EXE_FILENAME) $(START_ARGUMENTS) &",
+      "PreDebugScriptWithParametersWindows": "#WARNING: This will kill all mono processes\ntaskkill /IM mono.exe /F",
+      "DebugScriptWithParametersWindows": "mono.exe --debugger-agent=address=0.0.0.0:$(MONO_DEBUG_PORT),transport=dt_socket,server=y --debug=mdb-optimizations $(TARGET_EXE_FILENAME) $(START_ARGUMENTS)",
+      "LaunchJsonContentWindows": "{\r\n  \"version\": \"0.2.0\",\r\n  \"adapter\": \"$(PLINK_EXE_PATH)\",\r\n  \"adapterArgs\": \"$(PLINK_SSH_CONNECTION_ARGS) -batch -T vsdbg --interpreter=vscode\",\r\n  \"configurations\": [\r\n    {\r\n      \"name\": \".NET Core Launch (console)\",\r\n      \"type\": \"coreclr\",\r\n      \"request\": \"launch\",\r\n      \"preLaunchTask\": \"build\",\r\n      \"program\": \"dotnet\",\r\n      \"args\": [\r\n        \"$(TARGET_EXE_FILENAME)\",\r\n        \"$(START_ARGUMENTS)\"\r\n      ],\r\n      \"cwd\": \"$(DEPLOYMENT_PATH)\",\r\n      \"console\": \"internalConsole\",\r\n      \"stopAtEntry\": true\r\n    }\r\n  ]\r\n}",
+      "LaunchJsonContentLinux": "{\r\n  \"version\": \"0.2.0\",\r\n  \"adapter\": \"$(PLINK_EXE_PATH)\",\r\n  \"adapterArgs\": \"$(PLINK_SSH_CONNECTION_ARGS) -batch -T vsdbg --interpreter=vscode\",\r\n  \"configurations\": [\r\n    {\r\n      \"name\": \".NET Core Launch (console)\",\r\n      \"type\": \"coreclr\",\r\n      \"request\": \"launch\",\r\n      \"preLaunchTask\": \"build\",\r\n      \"program\": \"dotnet\",\r\n      \"args\": [\r\n        \"$(TARGET_EXE_FILENAME)\",\r\n        \"$(START_ARGUMENTS)\"\r\n      ],\r\n      \"cwd\": \"$(DEPLOYMENT_PATH)\",\r\n      \"console\": \"internalConsole\",\r\n      \"stopAtEntry\": true\r\n    }\r\n  ]\r\n}"
+    }
+  ]
+}
