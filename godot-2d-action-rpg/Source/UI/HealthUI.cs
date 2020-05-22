@@ -3,9 +3,9 @@ using System;
 
 public class HealthUI : Control
 {
-    private TextureRect _heartUiFull;
-    private TextureRect _heartUiEmpty;
-    private Stats       _playerStats;
+    private TextureRect     _heartUiFull;
+    private TextureRect     _heartUiEmpty;
+    private Stats           _playerStats;
 
     private int         _hearts;
     private int         _maxHearts;

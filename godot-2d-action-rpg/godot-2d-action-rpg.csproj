@@ -59,6 +59,7 @@
     <Compile Include="Source\Objects\Effect.cs" />
     <Compile Include="Source\Objects\Hitbox.cs" />
     <Compile Include="Source\Objects\Hurtbox.cs" />
+    <Compile Include="Source\Objects\SoftCollision.cs" />
     <Compile Include="Source\Objects\Stats.cs" />
     <Compile Include="Source\Player\Player.cs" />
     <Compile Include="Source\Player\SwordHitbox.cs" />

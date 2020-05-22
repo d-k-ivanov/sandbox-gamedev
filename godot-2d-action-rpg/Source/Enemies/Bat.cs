@@ -3,9 +3,9 @@ using System;
 
 public class Bat : KinematicBody2D
 {
-    [Export] public int MaxSpeed                = 80;
-    [Export] public int Acceleration            = 300;
-    [Export] public int Friction                = 400;
+    [Export] public int MaxSpeed                = 100;
+    [Export] public int Acceleration            = 400;
+    [Export] public int Friction                = 500;
 
     private Vector2                             _velocity;
     private Vector2                             _knockBack;
@@ -13,6 +13,7 @@ public class Bat : KinematicBody2D
     private Stats                               _stats;
     private PlayerDetectionZone                 _playerDetectionZone;
     private Hurtbox                             _hurtbox;
+    private SoftCollision                       _softCollision;
 
     private readonly PackedScene _enemyDeathEffectScene = GD.Load("res://Source/Enemies/EnemyDeathEffect.tscn") as PackedScene;
 
@@ -32,6 +33,7 @@ public class Bat : KinematicBody2D
         _stats                  = GetNode<Stats>("Stats");
         _playerDetectionZone    = GetNode<PlayerDetectionZone>("PlayerDetectionZone");
         _hurtbox                = GetNode<Hurtbox>("Hurtbox");
+        _softCollision          = GetNode<SoftCollision>("SoftCollision");
         // GD.Print($"{this.Name} initial status:\tHealth={_stats.Health} MaxHealth={_stats.MaxHealth}");
     }
 
@@ -64,6 +66,10 @@ public class Bat : KinematicBody2D
                 throw new ArgumentOutOfRangeException();
         }
 
+        if (_softCollision.IsColliding())
+        {
+            _velocity += _softCollision.GetPushVector() * delta * 400;
+        }
         _animatedSprite.FlipH = _velocity.x < 0;
         _velocity = MoveAndSlide(_velocity);
     }
