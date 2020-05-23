@@ -27,23 +27,23 @@ public class Player : KinematicBody2D
 
     public override void _Ready()
     {
-        _velocity                   = Vector2.Zero;
-        _rollDirection              = Vector2.Right;
+        _velocity                               = Vector2.Zero;
+        _rollDirection                          = Vector2.Right;
 
         // Player stats
-        _stats                      = GetNode("/root/PlayerStats") as Stats;
+        _stats                                  = GetNode("/root/PlayerStats") as Stats;
         _stats?.Connect("NoHealth", this, "Death");
 
-        // _animationPlayer         = GetNode<AnimationPlayer>("AnimationPlayer");
-        _animationTree              = GetNode<AnimationTree>("AnimationTree");
-        _animationTree.Active       = true;
-        _animationState             = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
+        // _animationPlayer                     = GetNode<AnimationPlayer>("AnimationPlayer");
+        _animationTree                          = GetNode<AnimationTree>("AnimationTree");
+        _animationTree.Active                   = true;
+        _animationState                         = (AnimationNodeStateMachinePlayback)_animationTree.Get("parameters/playback");
         _animationState.Start("Idle");
 
-        _swordHitbox                = GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
-        _swordHitbox.HitDirection   = Vector2.Right;
+        _swordHitbox                            = GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
+        _swordHitbox.HitDirection               = Vector2.Right;
 
-        _hurtbox                    = GetNode<Hurtbox>("Hurtbox");
+        _hurtbox                                 = GetNode<Hurtbox>("Hurtbox");
 
         GD.Print("Player is ready!");
     }
