@@ -6,7 +6,7 @@ public class Bat : KinematicBody2D
 {
     [Export] public int MaxSpeed                = 100;
     [Export] public int Acceleration            = 400;
-    [Export] public int Friction                = 800;
+    [Export] public int Friction                = 400;
 
     private Vector2                             _velocity;
     private Vector2                             _knockBack;
@@ -16,6 +16,7 @@ public class Bat : KinematicBody2D
     private Hurtbox                             _hurtbox;
     private SoftCollision                       _softCollision;
     private WanderController                    _wanderController;
+    private AnimationPlayer                     _animationPlayer;
 
     private readonly PackedScene _enemyDeathEffectScene = GD.Load("res://Source/Enemies/EnemyDeathEffect.tscn") as PackedScene;
 
@@ -38,6 +39,7 @@ public class Bat : KinematicBody2D
         _hurtbox                = GetNode<Hurtbox>("Hurtbox");
         _softCollision          = GetNode<SoftCollision>("SoftCollision");
         _wanderController       = GetNode<WanderController>("WanderController");
+        _animationPlayer        = GetNode<AnimationPlayer>("AnimationPlayer");
         _wanderController.StartWanderTimer((float) GD.RandRange(1,3));
         // GD.Print($"{this.Name} initial status:\tHealth={_stats.Health} MaxHealth={_stats.MaxHealth}");
         _batState               = PickRandomState(new List<BatState> {BatState.Idle, BatState.Wander});
@@ -95,7 +97,6 @@ public class Bat : KinematicBody2D
     {
         if (_wanderController.GetTimeLeft() == 0)
         {
-            GD.Print(_wanderController.GetTimeLeft());
             _batState = PickRandomState(new List<BatState> {BatState.Idle, BatState.Wander});
             _wanderController.StartWanderTimer((float) GD.RandRange(1,3));
         }
@@ -118,7 +119,6 @@ public class Bat : KinematicBody2D
             stateList[nextIndex]      = stateList[stateListCount];
             stateList[stateListCount] = tempValue;
         }
-        GD.Print(stateList[0]);
         return stateList[0];
     }
 
@@ -135,8 +135,9 @@ public class Bat : KinematicBody2D
         // }
 
         GD.Print($"{this.Name} health:\t{_stats.Health} of {_stats.MaxHealth}");
-        _knockBack = area.HitDirection * 250;
+        _knockBack = area.HitDirection * 220;
         _hurtbox.CreateHitEffect();
+        _hurtbox.StartInvincibility(0.4f);
     }
 
     private void CreateDeathEffect()
@@ -153,5 +154,14 @@ public class Bat : KinematicBody2D
         CreateDeathEffect();
     }
 
-}
+    private void _on_Hurtbox_InvincibilityStarted()
+    {
+        _animationPlayer.Play("Start");
+    }
 
+    private void _on_Hurtbox_InvincibilityStopped()
+    {
+        _animationPlayer.Play("Stop");
+    }
+
+}

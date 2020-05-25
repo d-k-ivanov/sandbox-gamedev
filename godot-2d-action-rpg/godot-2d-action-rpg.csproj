@@ -63,6 +63,7 @@
     <Compile Include="Source\Objects\SoftCollision.cs" />
     <Compile Include="Source\Objects\Stats.cs" />
     <Compile Include="Source\Player\Player.cs" />
+    <Compile Include="Source\Player\PlayerHurtSound.cs" />
     <Compile Include="Source\Player\SwordHitbox.cs" />
     <Compile Include="Source\UI\HealthUI.cs" />
     <Compile Include="Source\World\Grass.cs" />

@@ -16,6 +16,7 @@ public class Player : KinematicBody2D
     private AnimationNodeStateMachinePlayback   _animationState;
     private SwordHitbox                         _swordHitbox;
     private Hurtbox                             _hurtbox;
+    private AnimationPlayer                     _blinkAnimationPlayer;
 
     private enum PlayerState
     {
@@ -24,6 +25,8 @@ public class Player : KinematicBody2D
         Attack
     }
     private PlayerState _playerState            = PlayerState.Move;
+
+    private readonly PackedScene _playerHurtSoundScene  = GD.Load("res://Source/Player/PlayerHurtSound.tscn")   as PackedScene;
 
     public override void _Ready()
     {
@@ -43,7 +46,9 @@ public class Player : KinematicBody2D
         _swordHitbox                            = GetNode<SwordHitbox>("HitboxPivot/SwordHitbox");
         _swordHitbox.HitDirection               = Vector2.Right;
 
-        _hurtbox                                 = GetNode<Hurtbox>("Hurtbox");
+        _hurtbox                                = GetNode<Hurtbox>("Hurtbox");
+        _blinkAnimationPlayer                   = GetNode<AnimationPlayer>("BlinkAnimationPlayer");
+
 
         GD.Print("Player is ready!");
     }
@@ -134,11 +139,26 @@ public class Player : KinematicBody2D
         _playerState = PlayerState.Move;
     }
 
-    private void _on_Hurtbox_area_entered(object area)
+    private void _on_Hurtbox_area_entered(Hitbox area)
     {
-        _stats.Health -= 1;
-        _hurtbox.StartInvincibility(0.5f);
-        _hurtbox.CreateHitEffect();
-        GD.Print($"{this.Name} health:\t{_stats.Health} of {_stats.MaxHealth}");
+        // if (!_hurtbox.Invincible)
+        // {
+            _stats.Health -= area.Damage;
+            _hurtbox.StartInvincibility(1.0f);
+            _hurtbox.CreateHitEffect();
+            var playerHurtSound = _playerHurtSoundScene.Instance() as PlayerHurtSound;
+            GetTree().CurrentScene.AddChild(playerHurtSound);
+        // }
+        // GD.Print($"{this.Name} health:\t{_stats.Health} of {_stats.MaxHealth}");
+    }
+
+    private void _on_Hurtbox_InvincibilityStarted()
+    {
+        _blinkAnimationPlayer.Play("Start");
+    }
+
+    private void _on_Hurtbox_InvincibilityStopped()
+    {
+        _blinkAnimationPlayer.Play("Stop");
     }
 }
