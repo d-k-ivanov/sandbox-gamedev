@@ -57,6 +57,7 @@
     <Compile Include="Source\Enemies\Bat.cs" />
     <Compile Include="Source\Enemies\PlayerDetectionZone.cs" />
     <Compile Include="Source\Enemies\WanderController.cs" />
+    <Compile Include="Source\Objects\Camera2D.cs" />
     <Compile Include="Source\Objects\Effect.cs" />
     <Compile Include="Source\Objects\Hitbox.cs" />
     <Compile Include="Source\Objects\Hurtbox.cs" />

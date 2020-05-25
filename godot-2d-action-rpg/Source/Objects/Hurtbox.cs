@@ -5,6 +5,7 @@ public class Hurtbox : Area2D
 {
     private readonly PackedScene _hitEffectScene = GD.Load("res://Source/Enemies/HitEffect.tscn") as PackedScene;
     private Timer _timer;
+    private CollisionShape2D _collisionShape;
 
     [Signal] private delegate void InvincibilityStarted();
     [Signal] private delegate void InvincibilityStopped();
@@ -23,7 +24,8 @@ public class Hurtbox : Area2D
 
     public override void _Ready()
     {
-        _timer = GetNode<Timer>("Timer");
+        _timer          = GetNode<Timer>("Timer");
+        _collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
     }
 
     public override void _Process(float delta)
@@ -42,13 +44,15 @@ public class Hurtbox : Area2D
 
     private void _on_Hurtbox_InvincibilityStarted()
     {
-        SetDeferred("Monitorable",false);
+        // SetDeferred("Monitorable",false);
+        // _collisionShape.SetDeferred("Disabled", true);
+        _collisionShape.Disabled = true;
     }
 
     private void _on_Hurtbox_InvincibilityStopped()
     {
-        // SetDeferred("Monitorable",true);
-        Monitorable = true;
+        // Monitorable = true;
+        _collisionShape.Disabled = false;
     }
 
     public void CreateHitEffect()

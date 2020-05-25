@@ -15,8 +15,8 @@ shader = ExtResource( 9 )
 shader_param/active = false
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 4.45042
-height = 5.1971
+radius = 3.89344
+height = 4.70075
 
 [sub_resource type="Animation" id=2]
 resource_name = "AttackDown"
@@ -730,12 +730,12 @@ graph_offset = Vector2( -430, 36 )
 [sub_resource type="AnimationNodeStateMachinePlayback" id=46]
 
 [sub_resource type="CapsuleShape2D" id=47]
-radius = 10.6309
+radius = 9.71817
 height = 13.9641
 
 [sub_resource type="CapsuleShape2D" id=48]
-radius = 4.66891
-height = 5.37994
+radius = 4.84229
+height = 7.66181
 
 [sub_resource type="Animation" id=49]
 resource_name = "Start"
@@ -786,8 +786,7 @@ texture = ExtResource( 1 )
 hframes = 60
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-rotation = -1.5708
+rotation = 1.5708
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -832,6 +831,7 @@ script = ExtResource( 4 )
 Damage = 2
 
 [node name="CollisionShape2D" parent="HitboxPivot/SwordHitbox" index="0"]
+position = Vector2( -0.0783386, 3.4243e-09 )
 shape = SubResource( 47 )
 disabled = true
 
@@ -840,7 +840,7 @@ collision_layer = 4
 collision_mask = 0
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-position = Vector2( 0, -4 )
+position = Vector2( 0, -6 )
 shape = SubResource( 48 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
