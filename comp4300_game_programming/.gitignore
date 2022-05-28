@@ -1,0 +1,26 @@
+# Binaries
+**/bin/
+**/bin-int/
+
+# Visual Studio files and folder
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user
+
+# Conan files
+.conan
+**/conan_debug/
+**/conan_release/
+**/conan_relwithdebinfo/
+conan.lock
+conanbuildinfo.premake.lua
+conanbuildinfo.txt
+conaninfo.txt
+graph_info.json
+graphinfo
+venv
+
+# Misc
+tmp/
