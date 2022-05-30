@@ -44,9 +44,9 @@ local function conan_setup(include_conan)
     bindirs     { include_conan.bindirs }
 end
 
-conan_debug          = include_conan "conan_debug/conanbuildinfo.premake.lua"
-conan_release        = include_conan "conan_release/conanbuildinfo.premake.lua"
-conan_relwithdebinfo = include_conan "conan_relwithdebinfo/conanbuildinfo.premake.lua"
+conan_debug          = include_conan "_conan/debug/conanbuildinfo.premake.lua"
+conan_release        = include_conan "_conan/release/conanbuildinfo.premake.lua"
+conan_relwithdebinfo = include_conan "_conan/relwithdebinfo/conanbuildinfo.premake.lua"
 
 workspace "Solution"
     startproject "ProjectOne"
