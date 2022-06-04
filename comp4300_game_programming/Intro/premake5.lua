@@ -31,5 +31,6 @@ project "Intro"
 
     postbuildcommands
     {
+        "{COPY} config.txt %{cfg.targetdir}",
         "{COPY} *.ttf %{cfg.targetdir}"
     }

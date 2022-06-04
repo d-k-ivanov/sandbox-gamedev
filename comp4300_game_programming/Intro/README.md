@@ -1,3 +1,58 @@
+# 
+
+
+## Config File
+
+### Window W H
+
+This line declares that the SFML Window must be constructed.
+
+```txt
+Window Width    W   int
+Window Height   H   int
+
+```
+
+### Font F S R G B 
+ 
+This lines defines the font which is to be used to draw text for this program.
+The format of the line is as follows:
+
+```txt
+Font File       F           std::string
+Font Size       S           int
+RGB Color       (R,G,B)     int, int, int 
+```
+
+### Rectangle N X Y SX SY R G B W H
+ 
+Defines a RectangleShape with:
+
+```txt
+Shape Name          N           std::string
+Initial Position    (X,Y)       float, float
+Initial Speed       (SX,SY)     float, float
+RGB Color           (R,G,B)     int, int, int 
+Size                (W,H)       int, int
+```
+
+
+### Circle N X Y SX SY R G B R
+ 
+Defines a CircleShape with:
+
+```txt
+Shape Name          N           std::string
+Initial Position    (X,Y)       float, float
+Initial Speed       (SX,SY)     float, float
+RGB Color           (R,G,B)     int, int, int 
+Radius              (R)         float
+```
+
+
+## SFML Hello World
+
+```cpp
 #include "main.h"
 
 #include <SFML/Graphics.hpp>
@@ -81,3 +136,4 @@ int main(int argc, char* argv[])
 
     return 0;
 }
+```
