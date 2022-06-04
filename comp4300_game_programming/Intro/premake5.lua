@@ -14,6 +14,8 @@ project "Intro"
         "**.hxx",
         "**.lua",
         "**.md",
+        "**.ttf",
+        "**.txt",
     }
 
     vpaths
@@ -21,7 +23,13 @@ project "Intro"
         ["Archive/*"]   = {"**.md"},
         ["Build/*"]     = {"**.lua"},
         ["Headers/*"]   = { "**.h", "**.hpp" },
+        ["Resources/*"] = { "**.ttf", "**.txt" },
         ["Sources/*"]   = {"**.c", "**.cpp"},
     }
 
     filter ({})
+
+    postbuildcommands
+    {
+        "{COPY} *.ttf %{cfg.targetdir}"
+    }
