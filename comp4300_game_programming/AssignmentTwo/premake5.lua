@@ -22,9 +22,8 @@ project "AssignmentTwo"
     {
         ["Archive/*"]   = {"**.md"},
         ["Build/*"]     = {"**.lua"},
-        ["Headers/*"]   = { "**.h", "**.hpp" },
         ["Resources/*"] = { "**.ttf", "**.txt" },
-        ["Sources/*"]   = {"**.c", "**.cpp"},
+        ["Sources/*"]   = {"**.h", "**.cpp"},
     }
 
     filter ({})
