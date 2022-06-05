@@ -1,0 +1,14 @@
+Window 1024 1024
+Font arial.ttf 18 255 255 255
+Circle CGreen 100 100 -0.03 0.02 0 255 0 50
+Circle CBlue 200 200 0.02 0.04 0 0 255 100
+Circle CPurple 300 300 -0.02 -0.01 255 0 255 75
+Rectangle RRed 200 200 0.1 0.15 255 0 0 50 25
+Rectangle RGray 300 250 -0.02 0.02 100 100 100 50 100
+Rectangle RTeal 25 100 -0.02 -0.02 0 255 255 100 100
+Circle COrange 800 800 0.05 0.05 255 106 0 80
+Circle CYellow 200 200 0.08 -0.04 255 216 0 38
+Circle CPurple2 300 300 -0.08 -0.09 178 0 255 40
+Rectangle RGreen 200 200 0.09 0.15 0 127 70 150 130
+Rectangle RPurple 512 750 0.06 -0.08 178 0 255 70 100
+Rectangle ROrange 555 800 0.07 -0.08 255 106 0 120 120

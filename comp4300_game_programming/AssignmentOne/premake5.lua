@@ -1,4 +1,4 @@
-project "Intro"
+project "AssignmentOne"
     kind "ConsoleApp"
     language "C++"
     cppdialect "C++20"
@@ -28,3 +28,9 @@ project "Intro"
     }
 
     filter ({})
+
+    postbuildcommands
+    {
+        "{COPYFILE} config.txt %{cfg.targetdir}",
+        "{COPYFILE} *.ttf %{cfg.targetdir}"
+    }
