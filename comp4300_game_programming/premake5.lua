@@ -49,7 +49,7 @@ conan_release        = include_conan "_conan/release/conanbuildinfo.premake.lua"
 conan_relwithdebinfo = include_conan "_conan/relwithdebinfo/conanbuildinfo.premake.lua"
 
 workspace "Solution"
-    startproject "AssignmentOne"
+    startproject "AssignmentTwo"
 
     configurations { "RelWithDebInfo", "Release", "Debug" }
     platforms { "x64" }
@@ -117,6 +117,7 @@ workspace "Solution"
 
 include "Intro"
 include "AssignmentOne"
+include "AssignmentTwo"
 
 project "Other"
     kind "None"
