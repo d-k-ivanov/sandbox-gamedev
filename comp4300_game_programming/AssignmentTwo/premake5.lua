@@ -14,16 +14,17 @@ project "AssignmentTwo"
         "**.hxx",
         "**.lua",
         "**.md",
+        "**.png",
         "**.ttf",
         "**.txt",
     }
 
     vpaths
     {
-        ["Archive/*"]   = {"**.md"},
-        ["Build/*"]     = {"**.lua"},
-        ["Resources/*"] = { "**.ttf", "**.txt" },
-        ["Sources/*"]   = {"**.h", "**.cpp"},
+        ["Archive/*"]   = { "**.md" },
+        ["Build/*"]     = { "**.lua" },
+        ["Resources/*"] = { "**.png",  "**.ttf", "**.txt" },
+        ["Sources/*"]   = { "**.h", "**.cpp" },
     }
 
     filter ({})
@@ -31,5 +32,6 @@ project "AssignmentTwo"
     postbuildcommands
     {
         "{COPYFILE} config.txt %{cfg.targetdir}",
-        "{COPYFILE} *.ttf %{cfg.targetdir}"
+        "{COPYFILE} *.ttf %{cfg.targetdir}",
+        "{COPYFILE} grid.png %{cfg.targetdir}"
     }

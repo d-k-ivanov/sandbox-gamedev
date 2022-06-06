@@ -79,3 +79,7 @@ Shape Vertices          V               int
 LifeSpan                L               int
 Special Bullet Amount   SB              int
 ```
+
+## Screenshot
+
+![GeometryWars](screenshot.png)

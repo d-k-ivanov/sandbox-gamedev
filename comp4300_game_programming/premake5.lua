@@ -55,7 +55,7 @@ workspace "Solution"
     platforms { "x64" }
     warnings "Extra"
 
-    -- flags {"FatalWarnings" ,"MultiProcessorCompile", "ShadowedVariables", "UndefinedIdentifiers"}
+    flags {"FatalWarnings" ,"MultiProcessorCompile", "ShadowedVariables", "UndefinedIdentifiers"}
 
     targetdir ("bin/%{prj.name}/%{cfg.buildcfg}-%{cfg.architecture}")
     debugdir ("bin/%{prj.name}/%{cfg.buildcfg}-%{cfg.architecture}")
