@@ -5,11 +5,12 @@
 
 ## Projects
 
-* Intro C++ / SFML
-* ECS Geometry Wars
-* Mega Mario
-* Not Zelda
-* Final Project
+* [Intro C++ / SFML](Intro)
+* [SFML Basic Shapes](AssignmentOne)
+* [ECS Geometry Wars](AssignmentTwo)
+* [Mega Mario](AssignmentThree)
+* [Not Zelda](AssignmentFour)
+* [Final Project](AssignmentFive)
 
 ## Libraries
 
