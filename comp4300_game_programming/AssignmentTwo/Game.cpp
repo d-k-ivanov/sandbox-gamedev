@@ -38,7 +38,6 @@ void Game::run()
         sUserInput();
         sRender();
 
-        //Increment the current frame
         ++m_currentFrame;
     }
 }
@@ -243,7 +242,7 @@ void Game::init(const std::string& config)
         }
     }
 
-    m_scoreText.setPosition(0, 0);
+    m_scoreText.setPosition(20, 20);
     m_scoreText.setString(std::to_string(m_score));
 
     spawnPlayer();
