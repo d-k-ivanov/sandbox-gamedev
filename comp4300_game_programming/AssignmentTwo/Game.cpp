@@ -506,7 +506,7 @@ void Game::sCollision()
                 m_score += enemy->cScore->score;
                 m_scoreText.setString(std::to_string(m_score));
 
-                spawnSmallEnemies(enemy);
+                spawnEnemyFragments(enemy);
                 bullet->destroy();
                 enemy->destroy();
 
@@ -597,7 +597,6 @@ void Game::spawnPlayer()
 
     playerEntity->cTransform = std::make_shared<CTransform>(middleWindowPos, Vec2(0.0f, 0.0f), 0.0f);
 
-    //Creates the entities shape
     playerEntity->cShape = std::make_shared<CShape>(
         static_cast<float>(m_playerConfig.SR), m_playerConfig.V,
         sf::Color(m_playerConfig.FR, m_playerConfig.FG, m_playerConfig.FB),
@@ -629,13 +628,9 @@ void Game::spawnEnemy()
         randSpeed = m_enemyConfig.SMIN + Math::randomNumber<float>(0, m_enemyConfig.SMAX - m_enemyConfig.SMIN + 1);
     }
 
-    //Gives the entity the random position on the screen
     enemy->cTransform = std::make_shared<CTransform>(randPos, Vec2(randSpeed, randSpeed), 0.0f);
-
-    //Give the enemy a score of 100
-    enemy->cScore = std::make_shared<CScore>(100);
-
-    int vertices = m_enemyConfig.VMIN + Math::randomNumber<int>(0, m_enemyConfig.VMAX - m_enemyConfig.VMIN + 1);
+    enemy->cScore     = std::make_shared<CScore>(100);
+    int vertices      = m_enemyConfig.VMIN + Math::randomNumber<int>(0, m_enemyConfig.VMAX - m_enemyConfig.VMIN + 1);
 
     sf::Color fillColor
     {
@@ -653,19 +648,16 @@ void Game::spawnEnemy()
 
     enemy->cCollision = std::make_shared<CCollision>(static_cast<float>(m_enemyConfig.CR));
 
-    //Record when the most recent enemy was spawned
-    m_lastEnemySpawnTime = m_currentFrame;
+    m_lastEnemySpawnTime = m_currentFrame; // Lase spawned entity
 }
 
-void Game::spawnSmallEnemies(const std::shared_ptr<Entity>& parent)
+void Game::spawnEnemyFragments(const std::shared_ptr<Entity>& parent)
 {
-    //Spawn a number of small enemies equal to the number of vertices of the original
     const size_t vertices = parent->cShape->circle.getPointCount();
 
     Vec2 parentPos                 = {parent->cTransform->pos.x, parent->cTransform->pos.y};
     const Vec2 normalizedParentPos = Vec2::normalize(parentPos);
 
-    //Set each enemy to the same color as the original, half the size
     sf::Color parentFill            = parent->cShape->circle.getFillColor();
     sf::Color parentOutline         = parent->cShape->circle.getOutlineColor();
     float parentTickness            = parent->cShape->circle.getOutlineThickness();
@@ -673,14 +665,14 @@ void Game::spawnSmallEnemies(const std::shared_ptr<Entity>& parent)
     float smallEnemyCollisionRadius = parent->cCollision->radius * 0.5f;
 
     float angle = 0.0f;
-    // std::cout << "Parent: " << parentPos << " Parent normalized: " << normalizedParentPos << "\n";
+    // std::cout << "DEBUG: Parent (" << parentPos << ") Parent normalized: (" << normalizedParentPos << ")\n";
 
     for (size_t i = 0; i < vertices; ++i)
     {
         const auto enemyFragment = m_entities.addEntity(EntityTags::EnemyFragment);
         enemyFragment->cScore    = std::make_shared<CScore>(parent->cScore->score * 2);
-        enemyFragment->cShape    = std::make_shared<CShape>(smallEnemyRadius, static_cast<int>(vertices), parentFill, parentOutline,
-                                                            parentTickness);
+        enemyFragment->cShape    = std::make_shared<CShape>(
+            smallEnemyRadius, static_cast<int>(vertices), parentFill, parentOutline, parentTickness);
         enemyFragment->cCollision = std::make_shared<CCollision>(smallEnemyCollisionRadius);
         enemyFragment->cLifespan  = std::make_shared<CLifeSpan>(m_enemyConfig.L);
 

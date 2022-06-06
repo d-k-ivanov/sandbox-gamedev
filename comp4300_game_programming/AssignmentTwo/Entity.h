@@ -22,12 +22,12 @@ class Entity
     Entity(size_t id, EntityTags tag);
 
 public:
-    std::shared_ptr<CTransform> cTransform;
     std::shared_ptr<CCollision> cCollision;
-    std::shared_ptr<CScore> cScore;
     std::shared_ptr<CInput> cInput;
     std::shared_ptr<CLifeSpan> cLifespan;
+    std::shared_ptr<CScore> cScore;
     std::shared_ptr<CShape> cShape;
+    std::shared_ptr<CTransform> cTransform;
 
 public:
     [[nodiscard]] bool isActive() const;
