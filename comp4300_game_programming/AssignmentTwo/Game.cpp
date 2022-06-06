@@ -694,7 +694,7 @@ void Game::spawnEnemyFragments(const std::shared_ptr<Entity>& parent)
     }
 }
 
-void Game::spawnBullet(const std::shared_ptr<Entity>& shooter, const Vec2& mousePos)
+void Game::spawnBullet(const std::shared_ptr<Entity>& shooter, const Vec2& target)
 {
     const auto bullet = m_entities.addEntity(EntityTags::Bullet);
 
@@ -707,7 +707,7 @@ void Game::spawnBullet(const std::shared_ptr<Entity>& shooter, const Vec2& mouse
             sf::Color(m_bulletConfig.OR, m_bulletConfig.OG, m_bulletConfig.OB),
             static_cast<float>(m_bulletConfig.OT));
 
-    Vec2 difference = {mousePos.x - shooter->cTransform->pos.x, mousePos.y - shooter->cTransform->pos.y};
+    Vec2 difference = {target.x - shooter->cTransform->pos.x, target.y - shooter->cTransform->pos.y};
     difference.normalize();
     Vec2 velocity{m_bulletConfig.S * difference.x, m_bulletConfig.S * difference.y};
 
