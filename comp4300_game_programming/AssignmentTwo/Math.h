@@ -12,12 +12,12 @@ namespace Math
         std::mt19937 generator(randDevice());
         if constexpr  (std::is_floating_point_v<T>)
         {
-            const std::uniform_real_distribution<T> distribution(min, max);
+            std::uniform_real_distribution<T> distribution(min, max);
             return distribution(generator);
         }
         else
         {
-            const std::uniform_int_distribution<T> distribution(min, max);
+            std::uniform_int_distribution<T> distribution(min, max);
             return distribution(generator);
         }
     }
