@@ -23,7 +23,7 @@ project "SFMLBasicShapes"
         ["Archive/*"]   = {"**.md"},
         ["Build/*"]     = {"**.lua"},
         ["Headers/*"]   = { "**.h", "**.hpp" },
-        ["Resources/*"] = { "**.ttf", "**.txt" },
+        ["Resources/*"] = { "**.ttf", "**.txt", "**.jpg" },
         ["Sources/*"]   = {"**.c", "**.cpp"},
     }
 
@@ -31,5 +31,6 @@ project "SFMLBasicShapes"
 
     postbuildcommands
     {
+        "{COPYFILE} *.jpg %{cfg.targetdir}",
         "{COPYFILE} *.ttf %{cfg.targetdir}"
     }
