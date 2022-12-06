@@ -8,7 +8,7 @@ namespace fs = std::filesystem;
 
 struct PlayerConfig
 {
-    int SR, CR, OT, V; // TODO: Convert to float
+    int SR, CR, OT, V;                // TODO: Convert to float
     sf::Uint8 FR, FG, FB, OR, OG, OB; // Colors
     float S;
 };
@@ -16,13 +16,13 @@ struct PlayerConfig
 struct EnemyConfig
 {
     int SR, CR, OT, VMIN, VMAX, L, SI; // TODO: Convert to float
-    sf::Uint8 OR, OG, OB; // Colors
+    sf::Uint8 OR, OG, OB;              // Colors
     float SMIN, SMAX;
 };
 
 struct BulletConfig
 {
-    int SR, CR, OT, V, L, SB; // TODO: Convert to float
+    int SR, CR, OT, V, L, SB;         // TODO: Convert to float
     sf::Uint8 FR, FG, FB, OR, OG, OB; // Colors
     float S;
 };
