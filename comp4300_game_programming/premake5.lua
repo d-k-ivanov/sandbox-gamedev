@@ -49,7 +49,7 @@ conan_release        = include_conan "_conan/release/conanbuildinfo.premake.lua"
 conan_relwithdebinfo = include_conan "_conan/relwithdebinfo/conanbuildinfo.premake.lua"
 
 workspace "Solution"
-    startproject "SFMLBasicShapes2D"
+    startproject "SFMLSolarSystem"
 
     configurations { "RelWithDebInfo", "Release", "Debug" }
     platforms { "x64" }
@@ -120,6 +120,7 @@ include "AssignmentOne"
 include "AssignmentTwo"
 include "SFMLBasicShapes"
 include "SFMLBasicShapes2D"
+include "SFMLSolarSystem"
 
 project "Other"
     kind "None"
