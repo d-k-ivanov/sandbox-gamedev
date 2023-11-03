@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Player : KinematicBody2D
+public partial class Player : CharacterBody2D
 {
     [Export] public int MaxSpeed                = 160;
     [Export] public int RollSpeed               = 210;
@@ -35,7 +35,7 @@ public class Player : KinematicBody2D
 
         // Player stats
         _stats                                  = GetNode("/root/PlayerStats") as Stats;
-        _stats?.Connect("NoHealth", this, "Death");
+        _stats?.Connect("NoHealth", new Callable(this, "Death"));
 
         // _animationPlayer                     = GetNode<AnimationPlayer>("AnimationPlayer");
         _animationTree                          = GetNode<AnimationTree>("AnimationTree");
@@ -54,12 +54,12 @@ public class Player : KinematicBody2D
     }
 
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
         switch (_playerState)
         {
             case PlayerState.Move:
-                MoveState(delta);
+                MoveState((float) delta);
                 break;
             case PlayerState.Attack:
                 AttackState();
@@ -75,8 +75,8 @@ public class Player : KinematicBody2D
     private void MoveState(float delta)
     {
         var motion = Vector2.Zero;
-        motion.x   = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
-        motion.y   = Input.GetActionStrength("ui_down")  - Input.GetActionStrength("ui_up");
+        motion.X   = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+        motion.Y   = Input.GetActionStrength("ui_down")  - Input.GetActionStrength("ui_up");
         motion = motion.Normalized();
 
         if (motion != Vector2.Zero)
@@ -125,7 +125,9 @@ public class Player : KinematicBody2D
 
     private void Move()
     {
-        _velocity = MoveAndSlide( _velocity);
+        Velocity = _velocity;
+        MoveAndSlide();
+        _velocity = Velocity;
     }
 
     private void Death()
@@ -146,7 +148,7 @@ public class Player : KinematicBody2D
             _stats.Health -= area.Damage;
             _hurtbox.StartInvincibility(1.0f);
             _hurtbox.CreateHitEffect();
-            var playerHurtSound = _playerHurtSoundScene.Instance() as PlayerHurtSound;
+            var playerHurtSound = _playerHurtSoundScene.Instantiate() as PlayerHurtSound;
             GetTree().CurrentScene.AddChild(playerHurtSound);
         // }
         // GD.Print($"{this.Name} health:\t{_stats.Health} of {_stats.MaxHealth}");

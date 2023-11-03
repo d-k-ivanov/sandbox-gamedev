@@ -1,11 +1,11 @@
 using Godot;
 using System;
 
-public class PlayerHurtSound : AudioStreamPlayer
+public partial class PlayerHurtSound : AudioStreamPlayer
 {
     public override void _Ready()
     {
-        Connect("finished", this, "_on_finished");
+        Connect("finished", new Callable(this, "_on_finished"));
     }
 
     // public override void _Process(float delta)

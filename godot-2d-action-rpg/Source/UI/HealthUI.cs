@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class HealthUI : Control
+public partial class HealthUI : Control
 {
     private TextureRect     _heartUiFull;
     private TextureRect     _heartUiEmpty;
@@ -20,7 +20,7 @@ public class HealthUI : Control
             this._hearts = Mathf.Min(_hearts, _maxHearts);
             if (_heartUiEmpty != null)
             {
-                _heartUiEmpty.RectSize= new Vector2(_maxHearts * 15.0f, 11.0f);
+                _heartUiEmpty.Size= new Vector2(_maxHearts * 15.0f, 11.0f);
             }
         }
     }
@@ -35,7 +35,7 @@ public class HealthUI : Control
             // _hearts = value;
             if (_heartUiFull != null)
             {
-                _heartUiFull.RectSize= new Vector2(_hearts * 15.0f, 11.0f);
+                _heartUiFull.Size= new Vector2(_hearts * 15.0f, 11.0f);
             }
         }
     }
@@ -49,14 +49,14 @@ public class HealthUI : Control
         if (_playerStats != null)
         {
             _setMaxHearts(_playerStats.MaxHealth);
-            _playerStats.Connect("MaxHealthChanged", this, "_setMaxHearts");
+            _playerStats.Connect("MaxHealthChanged", new Callable(this, "_setMaxHearts"));
 
             _setHearts(_playerStats.Health);
-            _playerStats.Connect("HealthChanged", this, "_setHearts");
+            _playerStats.Connect("HealthChanged", new Callable(this, "_setHearts"));
         }
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {}
 
     private void _setMaxHearts(int value)

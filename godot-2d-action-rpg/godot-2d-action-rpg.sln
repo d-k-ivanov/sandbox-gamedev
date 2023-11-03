@@ -1,6 +1,6 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "godot-2d-action-rpg", "godot-2d-action-rpg.csproj", "{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "godot-2d-action-rpg", "godot-2d-action-rpg.csproj", "{8ED3A19E-E353-4962-B00C-C7F24D15E1FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,11 +9,11 @@ Global
 	ExportRelease|Any CPU = ExportRelease|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
-		{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
-		{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
-		{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
+		{8ED3A19E-E353-4962-B00C-C7F24D15E1FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8ED3A19E-E353-4962-B00C-C7F24D15E1FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8ED3A19E-E353-4962-B00C-C7F24D15E1FD}.ExportDebug|Any CPU.ActiveCfg = ExportDebug|Any CPU
+		{8ED3A19E-E353-4962-B00C-C7F24D15E1FD}.ExportDebug|Any CPU.Build.0 = ExportDebug|Any CPU
+		{8ED3A19E-E353-4962-B00C-C7F24D15E1FD}.ExportRelease|Any CPU.ActiveCfg = ExportRelease|Any CPU
+		{8ED3A19E-E353-4962-B00C-C7F24D15E1FD}.ExportRelease|Any CPU.Build.0 = ExportRelease|Any CPU
 	EndGlobalSection
 EndGlobal

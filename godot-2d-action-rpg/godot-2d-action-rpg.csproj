@@ -1,36 +1,7 @@
-﻿<Project Sdk="Godot.NET.Sdk/3.2.3">
+<Project Sdk="Godot.NET.Sdk/4.1.2">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Tools</Configuration>
-    <ProjectGuid>{6C9C6324-6AAF-4926-B78F-FCB31313A0E6}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
     <RootNamespace>godot2dactionrpg</RootNamespace>
-    <AssemblyName>godot-2d-action-rpg</AssemblyName>
-    <GodotProjectGeneratorVersion>1.0.7374.16792</GodotProjectGeneratorVersion>
-    <TargetFramework>net472</TargetFramework>
-    <!--The following properties were overriden during migration to prevent errors.
-    Enabling them may require other manual changes to the project and its files.-->
-    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <Deterministic>false</Deterministic>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Source\Enemies\Bat.cs" />
-    <Compile Include="Source\Enemies\PlayerDetectionZone.cs" />
-    <Compile Include="Source\Enemies\WanderController.cs" />
-    <Compile Include="Source\Objects\Camera2D.cs" />
-    <Compile Include="Source\Objects\Effect.cs" />
-    <Compile Include="Source\Objects\Hitbox.cs" />
-    <Compile Include="Source\Objects\Hurtbox.cs" />
-    <Compile Include="Source\Objects\SoftCollision.cs" />
-    <Compile Include="Source\Objects\Stats.cs" />
-    <Compile Include="Source\Player\Player.cs" />
-    <Compile Include="Source\Player\PlayerHurtSound.cs" />
-    <Compile Include="Source\Player\SwordHitbox.cs" />
-    <Compile Include="Source\UI\HealthUI.cs" />
-    <Compile Include="Source\World\Grass.cs" />
-  </ItemGroup>
 </Project>

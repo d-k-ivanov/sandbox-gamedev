@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class Grass : Node2D
+public partial class Grass : Node2D
 {
     private readonly PackedScene _grassEffectScene = GD.Load("res://Source/World/GrassEffect.tscn") as PackedScene;
 
@@ -9,7 +9,7 @@ public class Grass : Node2D
     {
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {
         // if (Input.IsActionJustPressed("attack"))
         // {}
@@ -17,7 +17,7 @@ public class Grass : Node2D
 
     private void CreateGrassEffect()
     {
-        var grassEffectNode         = _grassEffectScene.Instance() as Effect;
+        var grassEffectNode         = _grassEffectScene.Instantiate() as Effect;
         GetParent().AddChild(grassEffectNode);
         if (grassEffectNode != null) grassEffectNode.GlobalPosition = GlobalPosition;
     }

@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 
-public class Bat : KinematicBody2D
+public partial class Bat : CharacterBody2D
 {
     [Export] public int MaxSpeed                = 100;
     [Export] public int Acceleration            = 400;
@@ -10,7 +10,7 @@ public class Bat : KinematicBody2D
 
     private Vector2                             _velocity;
     private Vector2                             _knockBack;
-    private AnimatedSprite                      _animatedSprite;
+    private AnimatedSprite2D                    _animatedSprite;
     private Stats                               _stats;
     private PlayerDetectionZone                 _playerDetectionZone;
     private Hurtbox                             _hurtbox;
@@ -33,42 +33,43 @@ public class Bat : KinematicBody2D
         GD.Randomize();
         _velocity               = Vector2.Zero;
         _knockBack              = Vector2.Zero;
-        _animatedSprite         = GetNode<AnimatedSprite>("AnimatedSprite");
+        _animatedSprite         = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
         _stats                  = GetNode<Stats>("Stats");
         _playerDetectionZone    = GetNode<PlayerDetectionZone>("PlayerDetectionZone");
         _hurtbox                = GetNode<Hurtbox>("Hurtbox");
         _softCollision          = GetNode<SoftCollision>("SoftCollision");
         _wanderController       = GetNode<WanderController>("WanderController");
         _animationPlayer        = GetNode<AnimationPlayer>("AnimationPlayer");
-        _wanderController.StartWanderTimer((float) GD.RandRange(1,3));
+        _wanderController.StartWanderTimer(GD.RandRange(1,3));
         // GD.Print($"{this.Name} initial status:\tHealth={_stats.Health} MaxHealth={_stats.MaxHealth}");
         _batState               = PickRandomState(new List<BatState> {BatState.Idle, BatState.Wander});
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {
-        _knockBack = _knockBack.MoveToward(Vector2.Zero, Friction * delta);
-        _knockBack = MoveAndSlide(_knockBack );
+        Velocity = _knockBack.MoveToward(Vector2.Zero, Friction * (float) delta);
+        MoveAndSlide();
+        _knockBack = Velocity;
 
         switch (_batState)
         {
             case BatState.Idle:
-                _velocity = _velocity.MoveToward(Vector2.Zero, Friction * delta);
+                _velocity = _velocity.MoveToward(Vector2.Zero, Friction * (float) delta);
                 Seek();
                 break;
             case BatState.Wander:
                 Seek();
-                GoTowardPoint(_wanderController.TargetPosition, delta);
+                GoTowardPoint(_wanderController.TargetPosition, (float) delta);
                 if (GlobalPosition.DistanceTo(_wanderController.TargetPosition) <= _wanderController.WanderRange / 8f)
                 {
-                    _velocity = _velocity.MoveToward(Vector2.Zero, Friction * delta);
+                    _velocity = _velocity.MoveToward(Vector2.Zero, Friction * (float) delta);
                 }
                 break;
             case BatState.Chase:
                 var player = _playerDetectionZone.Player;
                 if (player != null)
                 {
-                    GoTowardPoint(player.GlobalPosition, delta);
+                    GoTowardPoint(player.GlobalPosition, (float) delta);
                 }
                 else
                 {
@@ -81,16 +82,19 @@ public class Bat : KinematicBody2D
 
         if (_softCollision.IsColliding())
         {
-            _velocity += _softCollision.GetPushVector() * delta * 400;
+            _velocity += _softCollision.GetPushVector() * (float) delta * 400;
         }
-        _velocity = MoveAndSlide(_velocity);
+
+        Velocity = _velocity;
+        MoveAndSlide();
+        _velocity = Velocity;
     }
 
     private void GoTowardPoint(Vector2 point, float delta)
     {
         var direction = GlobalPosition.DirectionTo(point);
         _velocity = _velocity.MoveToward(direction * MaxSpeed, Acceleration * delta);
-        _animatedSprite.FlipH = _velocity.x < 0;
+        _animatedSprite.FlipH = _velocity.X < 0;
     }
 
     private void Seek()
@@ -98,7 +102,7 @@ public class Bat : KinematicBody2D
         if (_wanderController.GetTimeLeft() == 0)
         {
             _batState = PickRandomState(new List<BatState> {BatState.Idle, BatState.Wander});
-            _wanderController.StartWanderTimer((float) GD.RandRange(1,3));
+            _wanderController.StartWanderTimer(GD.RandRange(1,3));
         }
         if (_playerDetectionZone.IsPlayerDetected())
         {
@@ -114,10 +118,8 @@ public class Bat : KinematicBody2D
         while (stateListCount > 1)
         {
             stateListCount--;
-            var nextIndex             = random.Next(stateListCount + 1);
-            var tempValue             = stateList[nextIndex];
-            stateList[nextIndex]      = stateList[stateListCount];
-            stateList[stateListCount] = tempValue;
+            var nextIndex = random.Next(stateListCount + 1);
+            (stateList[nextIndex], stateList[stateListCount]) = (stateList[stateListCount], stateList[nextIndex]);
         }
         return stateList[0];
     }
@@ -142,7 +144,7 @@ public class Bat : KinematicBody2D
 
     private void CreateDeathEffect()
     {
-        var deathEffectNode = _enemyDeathEffectScene.Instance() as Effect;
+        var deathEffectNode = _enemyDeathEffectScene.Instantiate() as Effect;
         GetParent().AddChild(deathEffectNode);
         if (deathEffectNode != null) deathEffectNode.GlobalPosition = GlobalPosition;
     }

@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public class Stats : Node
+public partial class Stats : Node
 {
     // Kill v.2 - Signals
-    [Signal] private delegate void NoHealth();
-    [Signal] private delegate void HealthChanged();
-    [Signal] private delegate void MaxHealthChanged();
+    [Signal] public delegate void NoHealthEventHandler();
+    [Signal] public delegate void HealthChangedEventHandler();
+    [Signal] public delegate void MaxHealthChangedEventHandler();
 
     private int _health;
     public int Health
@@ -44,7 +44,7 @@ public class Stats : Node
         Health = MaxHealth;
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {}
 
 }

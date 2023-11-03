@@ -1,14 +1,14 @@
 using Godot;
 using System;
 
-public class Hurtbox : Area2D
+public partial class Hurtbox : Area2D
 {
     private readonly PackedScene _hitEffectScene = GD.Load("res://Source/Enemies/HitEffect.tscn") as PackedScene;
     private Timer _timer;
     private CollisionShape2D _collisionShape;
 
-    [Signal] private delegate void InvincibilityStarted();
-    [Signal] private delegate void InvincibilityStopped();
+    [Signal] public delegate void InvincibilityStartedEventHandler();
+    [Signal] public delegate void InvincibilityStoppedEventHandler();
     private bool _invincible;
 
     public bool Invincible
@@ -28,7 +28,7 @@ public class Hurtbox : Area2D
         _collisionShape = GetNode<CollisionShape2D>("CollisionShape2D");
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {}
 
     public void StartInvincibility(float duration)
@@ -57,7 +57,7 @@ public class Hurtbox : Area2D
 
     public void CreateHitEffect()
     {
-        var hitEffectNode         = _hitEffectScene.Instance() as AnimatedSprite;
+        var hitEffectNode         = _hitEffectScene.Instantiate() as AnimatedSprite2D;
         GetTree().CurrentScene.AddChild(hitEffectNode);
         if (hitEffectNode != null) hitEffectNode.GlobalPosition = GlobalPosition;
     }

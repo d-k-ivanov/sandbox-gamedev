@@ -1,13 +1,14 @@
 [remap]
 
 importer="wav"
-type="AudioStreamSample"
-path="res://.import/Menu Select.wav-515f5d599c2932b0f4d0a1089bfb2f5b.sample"
+type="AudioStreamWAV"
+uid="uid://drtu0wo21b7jp"
+path="res://.godot/imported/Menu Select.wav-515f5d599c2932b0f4d0a1089bfb2f5b.sample"
 
 [deps]
 
 source_file="res://Assets/Music and Sounds/Menu Select.wav"
-dest_files=[ "res://.import/Menu Select.wav-515f5d599c2932b0f4d0a1089bfb2f5b.sample" ]
+dest_files=["res://.godot/imported/Menu Select.wav-515f5d599c2932b0f4d0a1089bfb2f5b.sample"]
 
 [params]
 
@@ -17,5 +18,7 @@ force/max_rate=false
 force/max_rate_hz=44100
 edit/trim=false
 edit/normalize=false
-edit/loop=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
 compress/mode=0

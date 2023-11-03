@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class PlayerDetectionZone : Area2D
+public partial class PlayerDetectionZone : Area2D
 {
     public Player Player;
 
@@ -10,7 +10,7 @@ public class PlayerDetectionZone : Area2D
         Player = null;
     }
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {}
 
     public bool IsPlayerDetected()

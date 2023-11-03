@@ -1,12 +1,12 @@
 using Godot;
 using System;
 
-public class SoftCollision : Area2D
+public partial class SoftCollision : Area2D
 {
     public override void _Ready()
     {}
 
-    public override void _Process(float delta)
+    public override void _Process(double delta)
     {}
 
     public bool IsColliding()

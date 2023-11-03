@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public class WanderController : Node2D
+public partial class WanderController : Node2D
 {
     [Export] public int WanderRange = 32;
 
@@ -18,18 +18,16 @@ public class WanderController : Node2D
         UpdateTargetPosition();
     }
 
-    public override void _PhysicsProcess(float delta)
+    public override void _PhysicsProcess(double delta)
     {}
 
     private void UpdateTargetPosition()
     {
-        var target_vector = new Vector2(
-            (float) GD.RandRange(-WanderRange, WanderRange),
-            (float) GD.RandRange(-WanderRange, WanderRange));
-        TargetPosition = _startPosition + target_vector;
+        var targetVector = new Vector2(GD.RandRange(-WanderRange, WanderRange), GD.RandRange(-WanderRange, WanderRange));
+        TargetPosition = _startPosition + targetVector;
     }
 
-    public float GetTimeLeft()
+    public double GetTimeLeft()
     {
         return _timer.TimeLeft;
     }

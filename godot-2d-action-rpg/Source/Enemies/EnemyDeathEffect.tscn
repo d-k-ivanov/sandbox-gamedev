@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Source/Objects/Effect.cs" type="Script" id=1]
-[ext_resource path="res://Assets/Effects/EnemyDeathEffect.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Effects/EnemyDeathEffect.png" type="Texture2D" id=2]
 [ext_resource path="res://Assets/Music and Sounds/EnemyDie.wav" type="AudioStream" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
@@ -52,7 +52,7 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[node name="EnemyDeathEffect" type="AnimatedSprite"]
+[node name="EnemyDeathEffect" type="AnimatedSprite2D"]
 frames = SubResource( 11 )
 animation = "Animate"
 offset = Vector2( 0, -8 )
