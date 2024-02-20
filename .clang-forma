@@ -1,0 +1,24 @@
+---
+BasedOnStyle: WebKit
+AlignAfterOpenBracket: Align
+AlignConsecutiveAssignments: Consecutive
+AlignConsecutiveDeclarations: Consecutive
+AlignTrailingComments: true
+AllowAllArgumentsOnNextLine: true
+BreakBeforeBraces: Allman
+ColumnLimit: 0
+Cpp11BracedListStyle: true
+IncludeCategories:
+  - Regex: '^".*"'
+    Priority: 1
+  - Regex: '^<.*/.*\.h>'
+    Priority: 2
+  - Regex: '^<[^/\.]*>'
+    Priority: 3
+  - Regex: '^<.*\.h>'
+    Priority: 4
+IndentCaseLabels: true
+SpaceBeforeParens: Never
+SpacesBeforeTrailingComments: 4
+TabWidth: 4
+...
